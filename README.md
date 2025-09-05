@@ -4,7 +4,7 @@ A starter repo with **Terraform** snippets and small **reference architectures**
 
 ---
 
-> [!] WARNING!
+> [!WARNING]
 > Designed for fast copy-paste, safe defaults, and easy customization. Everything here is intentionally **small** and **composable**.
 
 ## Quick start

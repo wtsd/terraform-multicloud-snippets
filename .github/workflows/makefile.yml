@@ -1,0 +1,66 @@
+name: Makefile CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: configure
+      run: ./configure
+
+    - name: Install dependencies
+      run: make
+
+    - name: Run check
+      run: make check
+
+    - name: Run distcheck
+      run: make distcheck
+
+            - name: Icon badge
+  # You may pin to the exact commit or the version.
+  # uses: damienaicheh/icon-badge-action@a39d495c4e8af27382c79c6305580998bd7afb7a
+  uses: damienaicheh/icon-badge-action@v1.0.0
+  with:
+    # Dark badge
+    dark: # optional
+    # Uses the word alpha instead of beta
+    alpha: # optional
+    # Keeps/Adds an alpha channel to the icons
+    alpha-channel: # optional
+    # Overlay a custom image on your icon
+    custom-overlay: # optional
+    # Removes the beta badge
+    no-badge: # optional
+    # Position of the badge on icon. Options: NorthWest North NorthEast West Center East SouthWest South SouthEast. Default: SouthEast
+    badge-gravity: # optional
+    # Overlay a shield from shields.io on your icon, eg: Version-1.2-green
+    shield: # optional
+    # Parameters of the shield image. String of key-value pairs separated by ampersand as specified on shields.io, eg: colorA=abcdef&style=flat
+    shield-parameters: # optional
+    # The timeout in seconds we should wait to get a response from shields.io. Default to 10 seconds.
+    shield-io-timeout: # optional
+    # Position of shield on icon, relative to gravity e.g, +50+10%
+    shield-geometry: # optional
+    # Position of shield on icon. Default: North
+    shield-gravity: # optional
+    # Shield image scale factor; e.g, 0.5, 2, etc. - works with --shield_no_resize
+    shield-scale: # optional
+    # Shield image will no longer be resized to aspect fill the full icon. Instead it will only be shrunk to not exceed the icon graphic
+    shield-no-resize: # optional
+    # Glob pattern for finding image files. Default: CURRENT_PATH/**/*.appiconset/*.{png,PNG}. Should start with /
+    images-path: # optional
+    # Whether making icons to grayscale
+    grayscale: # optional
+    # Your custom badge tool command
+    custom-command: # optional
+          

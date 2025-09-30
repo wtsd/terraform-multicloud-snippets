@@ -29,8 +29,16 @@ jobs:
 
       - name: Terraform fmt (example only)
         working-directory: examples/aws/one-time/s3_versioned_bucket
-        run: terraform fmt -check
+        run: terraform fmt -check -diff -recursive
 
+      - name: Fail if formatting changes were needed
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::Terraform files were reformatted. Please commit the changes."
+            git --no-pager diff
+            exit 1
+          fi
+          
       - name: Terraform init (no backend)
         working-directory: examples/aws/one-time/s3_versioned_bucket
         run: terraform init -backend=false -input=false

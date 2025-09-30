@@ -34,3 +34,7 @@ jobs:
       - name: Terraform init (no backend)
         working-directory: examples/aws/one-time/s3_versioned_bucket
         run: terraform init -backend=false -input=false
+
+      - name: Terraform validate
+        working-directory: examples/aws/one-time/s3_versioned_bucket
+        run: terraform validate -no-color

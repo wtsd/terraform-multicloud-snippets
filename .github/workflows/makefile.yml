@@ -14,17 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: configure
-      run: ./configure
-
-    - name: Install dependencies
-      run: make
-
-    - name: Run check
-      run: make check
-
-    - name: Run distcheck
-      run: make distcheck
+    - name: Format
+      run: make fmt init DIR=examples/aws/one-time/s3_versioned_bucket  
 
     - name: Icon badge
       # You may pin to the exact commit or the version.

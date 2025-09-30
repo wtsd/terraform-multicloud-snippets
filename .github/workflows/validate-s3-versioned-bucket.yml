@@ -1,0 +1,42 @@
+name: validate-s3-versioned-bucket
+
+on:
+  push:
+    branches: [ 'main' ]
+  pull_request:
+    branches: [ 'main' ]
+
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TF_PLUGIN_CACHE_DIR: ~/.terraform.d/plugin-cache
+      AWS_REGION: us-east-1
+      AWS_DEFAULT_REGION: us-east-1
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Cache Terraform plugins
+        uses: actions/cache@v4
+        with:
+          path: ~/.terraform.d/plugin-cache
+          key: ${{ runner.os }}-tf-${{ hashFiles('examples/aws/one-time/s3_versioned_bucket/.terraform.lock.hcl') }}
+          restore-keys: |
+            ${{ runner.os }}-tf-
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      ####
+      
+      - name: Terraform fmt (example only)
+        working-directory: examples/aws/one-time/s3_versioned_bucket
+        run: terraform fmt -check
+
+      
